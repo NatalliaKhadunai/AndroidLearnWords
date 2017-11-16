@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context="com.hfad.starbuzz.AddWordActivity">
+
+    <TextView android:id="@+id/add_word_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="37dp"
+        android:text= "@string/add_word_label"/>
+
+    <EditText android:id="@+id/add_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/add_word_label"
+        android:layout_below="@+id/add_word_label"/>
+
+    <TextView android:id="@+id/add_word_meaning_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/add_word"
+        android:layout_below="@+id/add_word"
+        android:text= "@string/add_word_meaning_label" />
+
+    <EditText android:id="@+id/add_word_meaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/add_word_meaning_label"
+        android:layout_below="@+id/add_word_meaning_label" />
+
+    <Button android:id="@+id/add_word_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/add_word_meaning"
+        android:layout_below="@+id/add_word_meaning"
+        android:layout_marginTop="18dp"
+        android:text="@string/add_word_btn"
+        android:onClick="onAddWordClicked"/>
+
+</RelativeLayout>
