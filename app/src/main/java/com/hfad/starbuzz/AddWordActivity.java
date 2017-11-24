@@ -26,6 +26,7 @@ public class AddWordActivity extends Activity {
             ContentValues contentValues = getValues();
             db.insert(tableName, null, contentValues);
             db.close();
+            finish();
         } catch(SQLiteException e) {
         }
     }

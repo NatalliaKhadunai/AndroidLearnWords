@@ -39,6 +39,10 @@ public class WordsActivity extends Activity {
                             startActivity(intent);
                         }
                         if (position == 1) {
+                            Intent intent = new Intent(WordsActivity.this,
+                                    WordCheckActivity.class);
+                            intent.putExtra(TopLevelActivity.LANGUAGE, getIntent().getStringExtra(TopLevelActivity.LANGUAGE));
+                            startActivity(intent);
                         }
                     }
                 };
@@ -46,50 +50,49 @@ public class WordsActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.list_words_actions);
         listView.setOnItemClickListener(itemClickListener);
 
-        //Create an OnItemClickListener
-        /*AdapterView.OnItemClickListener itemClickListener =
-                new AdapterView.OnItemClickListener() {
-                    public void onItemClick(AdapterView<?> listView,
-                                            View v,
-                                            int position,
-                                            long id) {
-                        if (position == 0) {
-                            Intent intent = new Intent(WordsActivity.this,
-                                    WordListActivity.class);
-                            startActivity(intent);
-                        }
-                    }
-                };*/
-        //Add the listener to the list view
-        //ListView listView = (ListView) findViewById(R.id.list_words);
-        //listView.setOnItemClickListener(itemClickListener);
+        loadWords();
+    }
 
-        ListView listFavorites = (ListView)findViewById(R.id.list_words);
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadWords();
+    }
+
+    private void loadWords() {
+        ListView listWords = (ListView)findViewById(R.id.list_words);
         try {
             SQLiteOpenHelper starbuzzDatabaseHelper = new WordDatabaseHelper(this);
             db = starbuzzDatabaseHelper.getReadableDatabase();
             String tableName = defineTableName();
             wordCursor = db.query(tableName,
-                    new String[] {"_id", "WORD"}, null,
+                    new String[] {"_id", "WORD", "MEANING"}, null,
                     null, null, null, null);
-            CursorAdapter favoriteAdapter =
+            CursorAdapter wordsAdapter =
                     new SimpleCursorAdapter(WordsActivity.this,
-                            android.R.layout.simple_list_item_1,
+                            android.R.layout.simple_list_item_2,
                             wordCursor,
-                            new String[]{"WORD"},
-                            new int[]{android.R.id.text1}, 0);
-            listFavorites.setAdapter(favoriteAdapter);
+                            new String[]{"WORD", "MEANING"},
+                            new int[]{android.R.id.text1, android.R.id.text2}, 0);
+            listWords.setAdapter(wordsAdapter);
         } catch(SQLiteException e) {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
 
-        //Navigate to DrinkActivity if a drink is clicked
-        listFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listWords.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> listView, View v, int position, long id) {
-                Intent intent = new Intent(WordsActivity.this, DrinkActivity.class);
-                startActivity(intent);
+                String query = "SELECT * FROM " + defineTableName() + " WHERE _id = ?";
+                Cursor cursor = db.rawQuery(query, new String[] {Long.toString(id)});
+                if (cursor.moveToFirst()) {
+                    Intent intent = new Intent(WordsActivity.this, WordActivity.class);
+                    intent.putExtra(TopLevelActivity.LANGUAGE, getIntent().getStringExtra(TopLevelActivity.LANGUAGE));
+                    intent.putExtra(WordActivity.WORD_ID_INTENT_EXTRA, cursor.getInt(0));
+                    intent.putExtra(WordActivity.WORD_INTENT_EXTRA, cursor.getString(1));
+                    intent.putExtra(WordActivity.MEANING_INTENT_EXTRA, cursor.getString(2));
+                    startActivity(intent);
+                }
             }
         });
     }

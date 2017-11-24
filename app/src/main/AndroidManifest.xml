@@ -16,19 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".WordListActivity"
-            android:label="@string/title_activity_drink_category" />
-        <activity
-            android:name=".DrinkActivity"
-            android:label="@string/title_activity_drink" />
         <activity android:name=".WordsActivity" />
         <activity
             android:name=".WordCheckActivity"
             android:label="@string/title_activity_word_check" />
         <activity
             android:name=".AddWordActivity"
-            android:label="@string/title_activity_add_word"></activity>
+            android:label="@string/title_activity_add_word" />
+        <activity android:name=".WordActivity"></activity>
     </application>
 
 </manifest>

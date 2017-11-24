@@ -21,4 +21,11 @@
     <string name="add_word_label">Type word:</string>
     <string name="add_word_meaning_label">Type meaning:</string>
     <string name="add_word_btn">Add</string>
+    <string name="type_word_to_check_label">Type word:</string>
+    <string name="check_word_btn">Check</string>
+    <string name="next_check_word_btn">Next</string>
+    <string name="update_word_btn">Update</string>
+    <string name="delete_word_btn">Delete</string>
+    <string name="word">Word:</string>
+    <string name="meaning">Meaning:</string>
 </resources>
