@@ -28,27 +28,15 @@ class WordDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE ENGLISH_WORD (_id INTEGER PRIMARY KEY AUTOINCREMENT, WORD TEXT NOT NULL, MEANING TEXT NOT NULL, RATING INTEGER DEFAULT 0)");
         db.execSQL("CREATE TABLE GERMAN_WORD (_id INTEGER PRIMARY KEY AUTOINCREMENT, WORD TEXT NOT NULL, MEANING TEXT NOT NULL, RATING INTEGER DEFAULT 0)");
         db.execSQL("CREATE TABLE POLISH_WORD (_id INTEGER PRIMARY KEY AUTOINCREMENT, WORD TEXT NOT NULL, MEANING TEXT NOT NULL, RATING INTEGER DEFAULT 0)");
-        insertEnglishWord(db, "to clinge a deal", "to make a deal");
-        insertGermanWord(db, "Schlüssel", "key");
-        insertPolishWord(db, "Skąd", "where from");
     }
 
-    public static void insertEnglishWord(SQLiteDatabase db, String word, String meaning) {
-        insertWord(db, "ENGLISH_WORD", word, meaning);
-    }
-
-    public static void insertGermanWord(SQLiteDatabase db, String word, String meaning) {
-        insertWord(db, "GERMAN_WORD", word, meaning);
-    }
-
-    public static void insertPolishWord(SQLiteDatabase db, String word, String meaning) {
-        insertWord(db, "POLISH_WORD", word, meaning);
-    }
-
-    private static void insertWord(SQLiteDatabase db, String tableName, String word, String meaning) {
-        ContentValues values = new ContentValues();
-        values.put("WORD", word);
-        values.put("MEANING", meaning);
-        db.insert(tableName, null, values);
+    public static String defineTableName(String languageStr) {
+        Language language = Language.valueOf(languageStr);
+        switch (language) {
+            case ENGLISH: return "ENGLISH_WORD";
+            case GERMAN: return "GERMAN_WORD";
+            case POLISH: return "POLISH_WORD";
+        }
+        return "ENGLISH_WORD";
     }
 }

@@ -22,24 +22,13 @@ public class AddWordActivity extends Activity {
         SQLiteOpenHelper starbuzzDatabaseHelper = new WordDatabaseHelper(AddWordActivity.this);
         try {
             SQLiteDatabase db = starbuzzDatabaseHelper.getWritableDatabase();
-            String tableName = defineTableName();
+            String tableName = WordDatabaseHelper.defineTableName(getIntent().getStringExtra(IntentExtraConstant.LANGUAGE));
             ContentValues contentValues = getValues();
             db.insert(tableName, null, contentValues);
             db.close();
             finish();
         } catch(SQLiteException e) {
         }
-    }
-
-    private String defineTableName() {
-        String languageStr = getIntent().getStringExtra(TopLevelActivity.LANGUAGE);
-        Language language = Language.valueOf(languageStr);
-        switch (language) {
-            case ENGLISH: return "ENGLISH_WORD";
-            case GERMAN: return "GERMAN_WORD";
-            case POLISH: return "POLISH_WORD";
-        }
-        return "ENGLISH_WORD";
     }
 
     private ContentValues getValues() {

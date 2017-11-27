@@ -8,11 +8,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +31,7 @@ public class WordCheckActivity extends Activity {
             SQLiteOpenHelper starbuzzDatabaseHelper = new WordDatabaseHelper(this);
             db = starbuzzDatabaseHelper.getReadableDatabase();
 
-            cursor = db.query("ENGLISH_WORD",
+            cursor = db.query(WordDatabaseHelper.defineTableName(getIntent().getStringExtra(IntentExtraConstant.LANGUAGE)),
                     new String[]{"_id", "WORD", "MEANING", "RATING"},
                     null, null, null, null, "RATING");
             cursor.moveToFirst();
@@ -42,7 +39,7 @@ public class WordCheckActivity extends Activity {
             wordToCheck = cursor.getString(1);
             wordsMeaning = cursor.getString(2);
             wordRating = cursor.getInt(3);
-            ((TextView)findViewById(R.id.word_to_be_checked)).setText(wordToCheck);
+            ((TextView)findViewById(R.id.word_to_be_checked)).setText(wordsMeaning);
         } catch(SQLiteException e) {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
@@ -58,15 +55,15 @@ public class WordCheckActivity extends Activity {
 
     public void onCheckWordClicked(View view) {
         String typedWord = ((EditText)findViewById(R.id.word_to_check)).getText().toString();
-        if (typedWord.equals(wordsMeaning)) {
-            TextView resultTextView =(TextView)findViewById(R.id.word_check_result);
+        if (typedWord.equals(wordToCheck)) {
+            TextView resultTextView = (TextView)findViewById(R.id.word_check_result);
             resultTextView.setTextColor(Color.GREEN);
             resultTextView.setText("Correct!");
             updateWordRating(1);
         } else {
             TextView resultTextView =(TextView)findViewById(R.id.word_check_result);
             resultTextView.setTextColor(Color.RED);
-            resultTextView.setText("Incorrect! Should be \"" + wordsMeaning + "\" instead of \"" + typedWord + "\"");
+            resultTextView.setText("Incorrect! Should be \"" + wordToCheck + "\" instead of \"" + typedWord + "\"");
             updateWordRating(-1);
         }
     }
@@ -77,8 +74,9 @@ public class WordCheckActivity extends Activity {
             wordToCheck = cursor.getString(1);
             wordsMeaning = cursor.getString(2);
             wordRating = cursor.getInt(3);
-            ((TextView)findViewById(R.id.word_to_be_checked)).setText(wordToCheck);
+            ((TextView)findViewById(R.id.word_to_be_checked)).setText(wordsMeaning);
             ((EditText)findViewById(R.id.word_to_check)).setText("");
+            ((TextView)findViewById(R.id.word_check_result)).setText("");
         }
         else {
             ((TextView)findViewById(R.id.word_check_result)).setText("No more words!");
@@ -88,17 +86,6 @@ public class WordCheckActivity extends Activity {
     public void updateWordRating(int rating) {
         ContentValues values = new ContentValues();
         values.put("RATING", wordRating + rating);
-        db.update(defineTableName(), values, "_id = " + wordId, null);
-    }
-
-    private String defineTableName() {
-        String languageStr = getIntent().getStringExtra(TopLevelActivity.LANGUAGE);
-        Language language = Language.valueOf(languageStr);
-        switch (language) {
-            case ENGLISH: return "ENGLISH_WORD";
-            case GERMAN: return "GERMAN_WORD";
-            case POLISH: return "POLISH_WORD";
-        }
-        return "ENGLISH_WORD";
+        db.update(WordDatabaseHelper.defineTableName(getIntent().getStringExtra(IntentExtraConstant.LANGUAGE)), values, "_id = " + wordId, null);
     }
 }

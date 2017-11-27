@@ -9,18 +9,15 @@ import android.view.View;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import static com.hfad.starbuzz.IntentExtraConstant.LANGUAGE;
+
 public class TopLevelActivity extends Activity {
-
-    public static final String LANGUAGE = "language";
-
-    private SQLiteDatabase db;
-    private Cursor favoritesCursor;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_level);
-        //Create an OnItemClickListener
+
         AdapterView.OnItemClickListener itemClickListener =
             new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> listView,
@@ -44,21 +41,8 @@ public class TopLevelActivity extends Activity {
 
                 }
             };
-        //Add the listener to the list view
+
         ListView listView = (ListView) findViewById(R.id.list_languages);
         listView.setOnItemClickListener(itemClickListener);
-    }
-
-    //Close the cursor and database in the onDestroy() method
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        favoritesCursor.close();
-        db.close();
-    }
-
-    @Override
-    public void onRestart() {
-        super.onRestart();
     }
 }

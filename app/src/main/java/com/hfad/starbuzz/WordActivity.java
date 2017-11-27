@@ -36,7 +36,7 @@ public class WordActivity extends Activity {
         SQLiteOpenHelper starbuzzDatabaseHelper = new WordDatabaseHelper(WordActivity.this);
         try {
             SQLiteDatabase db = starbuzzDatabaseHelper.getWritableDatabase();
-            String tableName = defineTableName();
+            String tableName = WordDatabaseHelper.defineTableName(getIntent().getStringExtra(IntentExtraConstant.LANGUAGE));
             ContentValues contentValues = getValues();
             db.update(tableName, contentValues, "_id = " + wordId, null);
             db.close();
@@ -50,7 +50,7 @@ public class WordActivity extends Activity {
         SQLiteOpenHelper starbuzzDatabaseHelper = new WordDatabaseHelper(WordActivity.this);
         try {
             SQLiteDatabase db = starbuzzDatabaseHelper.getWritableDatabase();
-            String tableName = defineTableName();
+            String tableName = WordDatabaseHelper.defineTableName(getIntent().getStringExtra(IntentExtraConstant.LANGUAGE));
             db.delete(tableName, "_id = " + wordId, null);
             db.close();
             finish();
@@ -59,16 +59,6 @@ public class WordActivity extends Activity {
         finish();
     }
 
-    private String defineTableName() {
-        String languageStr = getIntent().getStringExtra(TopLevelActivity.LANGUAGE);
-        Language language = Language.valueOf(languageStr);
-        switch (language) {
-            case ENGLISH: return "ENGLISH_WORD";
-            case GERMAN: return "GERMAN_WORD";
-            case POLISH: return "POLISH_WORD";
-        }
-        return "ENGLISH_WORD";
-    }
     private ContentValues getValues() {
         EditText wordET = (EditText)findViewById(R.id.word);
         EditText meaningET = (EditText)findViewById(R.id.meaning);

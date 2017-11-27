@@ -35,13 +35,13 @@ public class WordsActivity extends Activity {
                         if (position == 0) {
                             Intent intent = new Intent(WordsActivity.this,
                                     AddWordActivity.class);
-                            intent.putExtra(TopLevelActivity.LANGUAGE, getIntent().getStringExtra(TopLevelActivity.LANGUAGE));
+                            intent.putExtra(IntentExtraConstant.LANGUAGE, getIntent().getStringExtra(IntentExtraConstant.LANGUAGE));
                             startActivity(intent);
                         }
                         if (position == 1) {
                             Intent intent = new Intent(WordsActivity.this,
                                     WordCheckActivity.class);
-                            intent.putExtra(TopLevelActivity.LANGUAGE, getIntent().getStringExtra(TopLevelActivity.LANGUAGE));
+                            intent.putExtra(IntentExtraConstant.LANGUAGE, getIntent().getStringExtra(IntentExtraConstant.LANGUAGE));
                             startActivity(intent);
                         }
                     }
@@ -64,7 +64,7 @@ public class WordsActivity extends Activity {
         try {
             SQLiteOpenHelper starbuzzDatabaseHelper = new WordDatabaseHelper(this);
             db = starbuzzDatabaseHelper.getReadableDatabase();
-            String tableName = defineTableName();
+            String tableName = WordDatabaseHelper.defineTableName(getIntent().getStringExtra(IntentExtraConstant.LANGUAGE));
             wordCursor = db.query(tableName,
                     new String[] {"_id", "WORD", "MEANING"}, null,
                     null, null, null, null);
@@ -83,11 +83,11 @@ public class WordsActivity extends Activity {
         listWords.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> listView, View v, int position, long id) {
-                String query = "SELECT * FROM " + defineTableName() + " WHERE _id = ?";
+                String query = "SELECT * FROM " + WordDatabaseHelper.defineTableName(getIntent().getStringExtra(IntentExtraConstant.LANGUAGE)) + " WHERE _id = ?";
                 Cursor cursor = db.rawQuery(query, new String[] {Long.toString(id)});
                 if (cursor.moveToFirst()) {
                     Intent intent = new Intent(WordsActivity.this, WordActivity.class);
-                    intent.putExtra(TopLevelActivity.LANGUAGE, getIntent().getStringExtra(TopLevelActivity.LANGUAGE));
+                    intent.putExtra(IntentExtraConstant.LANGUAGE, getIntent().getStringExtra(IntentExtraConstant.LANGUAGE));
                     intent.putExtra(WordActivity.WORD_ID_INTENT_EXTRA, cursor.getInt(0));
                     intent.putExtra(WordActivity.WORD_INTENT_EXTRA, cursor.getString(1));
                     intent.putExtra(WordActivity.MEANING_INTENT_EXTRA, cursor.getString(2));
@@ -95,16 +95,5 @@ public class WordsActivity extends Activity {
                 }
             }
         });
-    }
-
-    private String defineTableName() {
-        String languageStr = getIntent().getStringExtra(TopLevelActivity.LANGUAGE);
-        Language language = Language.valueOf(languageStr);
-        switch (language) {
-            case ENGLISH: return "ENGLISH_WORD";
-            case GERMAN: return "GERMAN_WORD";
-            case POLISH: return "POLISH_WORD";
-        }
-        return "ENGLISH_WORD";
     }
 }
