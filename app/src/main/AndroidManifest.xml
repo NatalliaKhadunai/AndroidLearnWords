@@ -23,7 +23,7 @@
         <activity
             android:name=".AddWordActivity"
             android:label="@string/title_activity_add_word" />
-        <activity android:name=".WordActivity"></activity>
+        <activity android:name=".WordActivity" />
     </application>
 
 </manifest>

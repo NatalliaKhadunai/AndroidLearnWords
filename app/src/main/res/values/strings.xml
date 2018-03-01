@@ -28,4 +28,9 @@
     <string name="delete_word_btn">Delete</string>
     <string name="word">Word:</string>
     <string name="meaning">Meaning:</string>
+    <string name="choose_topic_label">Choose topic:</string>
+    <string name="add_topic_label">Or add new topic:</string>
+    <string name="check_all_words_btn">Check All</string>
+    <string name="choose_topic_ok">Ok</string>
+    <string name="choose_topic_cancel">Cancel</string>
 </resources>

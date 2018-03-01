@@ -33,10 +33,40 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/meaning_label" />
 
+    <!--TOPIC-->
+
+    <TextView android:id="@+id/choose_new_topic_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/meaning"
+        android:layout_below="@+id/meaning"
+        android:text= "@string/choose_topic_label" />
+
+    <Spinner android:id="@+id/choose_new_topic_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/choose_new_topic_label"
+        android:layout_below="@+id/choose_new_topic_label"
+        android:spinnerMode="dropdown" />
+
+    <TextView android:id="@+id/new_topic_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/choose_new_topic_dropdown"
+        android:text="@string/add_topic_label"/>
+
+    <EditText android:id="@+id/new_topic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/new_topic_label"
+        android:maxLength="30" />
+
+    <!--TOPIC-->
+
     <Button android:id="@+id/update_word_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/meaning"
+        android:layout_below="@+id/new_topic"
         android:layout_marginTop="18dp"
         android:text="@string/update_word_btn"
         android:onClick="onUpdateWordBtnClick"/>
@@ -44,7 +74,7 @@
     <Button android:id="@+id/delete_word_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/meaning"
+        android:layout_below="@+id/new_topic"
         android:layout_toRightOf="@+id/update_word_btn"
         android:layout_marginTop="18dp"
         android:text="@string/delete_word_btn"

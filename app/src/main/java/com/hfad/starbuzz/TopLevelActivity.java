@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.view.View;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import static com.hfad.starbuzz.IntentExtraConstant.LANGUAGE;
 
@@ -24,19 +22,10 @@ public class TopLevelActivity extends Activity {
                                         View v,
                                         int position,
                                         long id) {
-                    Language language = Language.ENGLISH;
-                    if (position == 0) {
-                        language = Language.ENGLISH;
-                    }
-                    if (position == 1) {
-                        language = Language.GERMAN;
-                    }
-                    if (position == 2) {
-                        language = Language.POLISH;
-                    }
+
                     Intent intent = new Intent(TopLevelActivity.this,
                                                    WordsActivity.class);
-                    intent.putExtra(LANGUAGE, language.name());
+                    intent.putExtra(LANGUAGE, getLanguageByPosition(position));
                     startActivity(intent);
 
                 }
@@ -44,5 +33,19 @@ public class TopLevelActivity extends Activity {
 
         ListView listView = (ListView) findViewById(R.id.list_languages);
         listView.setOnItemClickListener(itemClickListener);
+    }
+
+    private String getLanguageByPosition(int position) {
+        Language language = Language.ENGLISH;
+        if (position == 0) {
+            language = Language.ENGLISH;
+        }
+        if (position == 1) {
+            language = Language.GERMAN;
+        }
+        if (position == 2) {
+            language = Language.POLISH;
+        }
+        return language.name();
     }
 }

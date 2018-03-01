@@ -18,29 +18,53 @@
         android:text= "@string/add_word_label"/>
 
     <EditText android:id="@+id/add_word"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/add_word_label"
         android:layout_below="@+id/add_word_label"/>
 
     <TextView android:id="@+id/add_word_meaning_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/add_word"
         android:layout_below="@+id/add_word"
         android:text= "@string/add_word_meaning_label" />
 
     <EditText android:id="@+id/add_word_meaning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_word_meaning_label" />
+
+    <!--ADD TOPIC-->
+
+    <TextView android:id="@+id/choose_topic_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/add_word_meaning_label"
-        android:layout_below="@+id/add_word_meaning_label" />
+        android:layout_below="@+id/add_word_meaning"
+        android:text= "@string/choose_topic_label" />
+
+    <Spinner android:id="@+id/choose_topic_dropdown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/choose_topic_label"
+        android:spinnerMode="dropdown" />
+
+    <TextView android:id="@+id/add_topic_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/choose_topic_dropdown"
+        android:text= "@string/add_topic_label" />
+
+    <EditText android:id="@+id/add_topic_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_topic_label"
+        android:maxLength="30"/>
+
+    <!--ADD TOPIC END-->
 
     <Button android:id="@+id/add_word_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/add_word_meaning"
-        android:layout_below="@+id/add_word_meaning"
+        android:layout_below="@+id/add_topic_text"
         android:layout_marginTop="18dp"
         android:text="@string/add_word_btn"
         android:onClick="onAddWordClicked"/>
