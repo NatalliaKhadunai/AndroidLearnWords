@@ -9,18 +9,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="37dp" />
+        android:layout_marginTop="37dp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerInParent="true"
+        android:textSize="32sp"/>
 
     <TextView android:id="@+id/type_word_to_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/word_to_be_checked"
-        android:text= "@string/type_word_to_check_label" />
+        android:text= "@string/type_word_to_check_label"
+        android:layout_centerInParent="true" />
 
     <EditText android:id="@+id/word_to_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/type_word_to_check" />
+        android:layout_below="@+id/type_word_to_check"
+        android:layout_centerInParent="true" />
 
     <Button android:id="@+id/check_word_btn"
         android:layout_width="wrap_content"
@@ -28,12 +33,14 @@
         android:layout_below="@+id/word_to_check"
         android:layout_marginTop="18dp"
         android:text="@string/check_word_btn"
-        android:onClick="onCheckWordClicked"/>
+        android:onClick="onCheckWordClicked"
+        android:layout_centerInParent="true" />
 
     <TextView android:id="@+id/word_check_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/check_word_btn" />
+        android:layout_below="@+id/check_word_btn"
+        android:layout_centerInParent="true" />
 
     <Button android:id="@+id/next_word_btn"
         android:layout_width="wrap_content"
@@ -41,5 +48,6 @@
         android:layout_below="@+id/word_check_result"
         android:layout_marginTop="18dp"
         android:text="@string/next_check_word_btn"
-        android:onClick="onNextCheckWordClicked"/>
+        android:onClick="onNextCheckWordClicked"
+        android:layout_centerInParent="true" />
 </RelativeLayout>

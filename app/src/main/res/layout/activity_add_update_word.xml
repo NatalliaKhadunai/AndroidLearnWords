@@ -8,37 +8,37 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context="com.hfad.starbuzz.AddWordActivity">
+    tools:context="com.hfad.starbuzz.AddUpdateWordActivity">
 
-    <TextView android:id="@+id/add_word_label"
+    <TextView android:id="@+id/word_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="37dp"
-        android:text= "@string/add_word_label"/>
+        android:text= "@string/word_label"/>
 
-    <EditText android:id="@+id/add_word"
+    <EditText android:id="@+id/word"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/add_word_label"/>
+        android:layout_below="@+id/word_label"/>
 
-    <TextView android:id="@+id/add_word_meaning_label"
+    <TextView android:id="@+id/word_meaning_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/add_word"
-        android:text= "@string/add_word_meaning_label" />
+        android:layout_below="@+id/word"
+        android:text= "@string/meaning_label" />
 
-    <EditText android:id="@+id/add_word_meaning"
+    <EditText android:id="@+id/meaning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/add_word_meaning_label" />
+        android:layout_below="@+id/word_meaning_label" />
 
     <!--ADD TOPIC-->
 
     <TextView android:id="@+id/choose_topic_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/add_word_meaning"
+        android:layout_below="@+id/meaning"
         android:text= "@string/choose_topic_label" />
 
     <Spinner android:id="@+id/choose_topic_dropdown"
@@ -53,7 +53,7 @@
         android:layout_below="@+id/choose_topic_dropdown"
         android:text= "@string/add_topic_label" />
 
-    <EditText android:id="@+id/add_topic_text"
+    <EditText android:id="@+id/add_topic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/add_topic_label"
@@ -64,9 +64,29 @@
     <Button android:id="@+id/add_word_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/add_topic_text"
+        android:layout_below="@+id/add_topic"
         android:layout_marginTop="18dp"
         android:text="@string/add_word_btn"
-        android:onClick="onAddWordClicked"/>
+        android:visibility="gone"
+        android:onClick="onAddWordBtnClicked"/>
+
+    <Button android:id="@+id/update_word_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_topic"
+        android:layout_marginTop="18dp"
+        android:text="@string/update_word_btn"
+        android:visibility="gone"
+        android:onClick="onUpdateWordBtnClick"/>
+
+    <Button android:id="@+id/delete_word_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_topic"
+        android:layout_toRightOf="@+id/update_word_btn"
+        android:layout_marginTop="18dp"
+        android:text="@string/delete_word_btn"
+        android:visibility="gone"
+        android:onClick="onDeleteWordBtnClick"/>
 
 </RelativeLayout>

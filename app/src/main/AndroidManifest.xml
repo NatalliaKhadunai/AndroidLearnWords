@@ -21,9 +21,8 @@
             android:name=".WordCheckActivity"
             android:label="@string/title_activity_word_check" />
         <activity
-            android:name=".AddWordActivity"
+            android:name=".AddUpdateWordActivity"
             android:label="@string/title_activity_add_word" />
-        <activity android:name=".WordActivity" />
     </application>
 
 </manifest>

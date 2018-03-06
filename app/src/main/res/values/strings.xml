@@ -1,33 +1,25 @@
 <resources>
-    <string name="app_name">Starbuzz</string>
-
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Word Learning</string>
     <string name="action_settings">Settings</string>
     <string-array name="options">
         <item>English</item>
         <item>German</item>
         <item>Polish</item>
     </string-array>
-    <string name="title_activity_drink_category">DrinkCategoryActivity</string>
-    <string name="title_activity_drink">DrinkActivity</string>
-    <string name="favorite">Favorite</string>
-    <string name="favorites">Your favorite drinks:</string>
     <string-array name="words_actions">
         <item>Add word</item>
         <item>Check words</item>
     </string-array>
     <string name="title_activity_word_check">WordCheckActivity</string>
     <string name="title_activity_add_word">AddWordActivity</string>
-    <string name="add_word_label">Type word:</string>
-    <string name="add_word_meaning_label">Type meaning:</string>
-    <string name="add_word_btn">Add</string>
     <string name="type_word_to_check_label">Type word:</string>
     <string name="check_word_btn">Check</string>
     <string name="next_check_word_btn">Next</string>
+    <string name="add_word_btn">Add</string>
     <string name="update_word_btn">Update</string>
     <string name="delete_word_btn">Delete</string>
-    <string name="word">Word:</string>
-    <string name="meaning">Meaning:</string>
+    <string name="word_label">Word:</string>
+    <string name="meaning_label">Meaning:</string>
     <string name="choose_topic_label">Choose topic:</string>
     <string name="add_topic_label">Or add new topic:</string>
     <string name="check_all_words_btn">Check All</string>

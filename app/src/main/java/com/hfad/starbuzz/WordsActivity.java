@@ -38,7 +38,7 @@ public class WordsActivity extends Activity {
                                             long id) {
                         if (position == 0) {
                             Intent intent = new Intent(WordsActivity.this,
-                                    AddWordActivity.class);
+                                    AddUpdateWordActivity.class);
                             intent.putExtra(IntentExtraConstant.LANGUAGE, language);
                             startActivity(intent);
                         }
@@ -100,7 +100,7 @@ public class WordsActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> listView, View v, int position, long id) {
                 Word word = wordDatabaseHelper.getWord(language, (int) id);
-                    Intent intent = new Intent(WordsActivity.this, WordActivity.class);
+                    Intent intent = new Intent(WordsActivity.this, AddUpdateWordActivity.class);
                     intent.putExtra(IntentExtraConstant.LANGUAGE, language);
                     intent.putExtra(WORD, word);
                     startActivity(intent);
