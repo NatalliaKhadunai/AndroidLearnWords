@@ -8,13 +8,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import static com.hfad.starbuzz.IntentExtraConstant.*;
 
@@ -22,6 +23,8 @@ public class WordsActivity extends Activity {
 
     private WordDatabaseHelper wordDatabaseHelper;
     private String language;
+    private String[] topicArray;
+    private Set<String> chosenTopicSet = new HashSet<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,17 +64,25 @@ public class WordsActivity extends Activity {
     }
 
     private Dialog createChooseTopicsForCheckDialog() {
-        final Cursor topicCursor = wordDatabaseHelper.getTopicCursor(language);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose topic").setMultiChoiceItems(topicCursor, "TOPIC", "TOPIC", null);
+        topicArray = formTopicArray();
+        builder.setTitle("Choose topic").setMultiChoiceItems(topicArray, null, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                if (isChecked) {
+                    chosenTopicSet.add(topicArray[which]);
+                } else {
+                    chosenTopicSet.remove(topicArray[which]);
+                }
+            }
+        });
         builder.setPositiveButton(R.string.choose_topic_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
                 Intent intent = new Intent(WordsActivity.this,
                         WordCheckActivity.class);
                 intent.putExtra(IntentExtraConstant.LANGUAGE, language);
-                intent.putStringArrayListExtra(CHOSEN_TOPICS, getChosenTopicsForCheck(dialogInterface));
+                intent.putStringArrayListExtra(CHOSEN_TOPICS, new ArrayList<>(chosenTopicSet));
                 startActivity(intent);
             }
         });
@@ -83,6 +94,20 @@ public class WordsActivity extends Activity {
         });
 
         return builder.create();
+    }
+
+    private String[] formTopicArray() {
+        Cursor topicCursor = wordDatabaseHelper.getTopicCursor(language);
+        Set<String> topicSet = new HashSet(topicCursor.getCount());
+        if (topicCursor.moveToFirst()) {
+            for (int i = 0; i < topicCursor.getCount(); i++) {
+                topicSet.add(topicCursor.getString(1));
+                topicCursor.moveToNext();
+            }
+        }
+        String[] topicArray = new String[topicSet.size()];
+        topicArray = topicSet.toArray(topicArray);
+        return topicArray;
     }
 
     private void loadWordsToList() {
@@ -106,18 +131,5 @@ public class WordsActivity extends Activity {
                     startActivity(intent);
             }
         });
-    }
-
-    private ArrayList<String> getChosenTopicsForCheck(DialogInterface dialogInterface) {
-        long[] checkedItemIds = ((AlertDialog) dialogInterface).getListView().getCheckedItemIds();
-        Adapter adapter = ((AlertDialog) dialogInterface).getListView().getAdapter();
-        Cursor cursor = ((CursorAdapter) adapter).getCursor();
-        ArrayList<String> chosenTopics = new ArrayList<>();
-        for (long checkedId : checkedItemIds) {
-            cursor.moveToPosition((int) checkedId - 1);
-            String topic = cursor.getString(1);
-            chosenTopics.add(topic);
-        }
-        return chosenTopics;
     }
 }
